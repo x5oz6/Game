@@ -1,8 +1,7 @@
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 
-local player = Players.LocalPlayer
-
-local gameId = 110527470576687
-
-TeleportService:Teleport(gameId, player)
+Players.PlayerAdded:Connect(function(player)
+    local gameId = 110527470576687 -- PlaceId bạn muốn teleport
+    TeleportService:Teleport(gameId, player)
+end)
