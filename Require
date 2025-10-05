@@ -1,0 +1,12 @@
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- ID của game đích (thay bằng game bạn muốn)
+local gameId = 127705035285236  
+
+-- Nếu bạn muốn teleport đến một Place con cụ thể, dùng PlaceId thay cho GameId
+
+script.Parent.MouseButton1Click:Connect(function()
+    TeleportService:Teleport(gameId, player)
+end)
