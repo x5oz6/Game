@@ -46,16 +46,21 @@ local function ConfirmRun(message, callback)
     end)
 end
 
--- Ví dụ sử dụng
-loadstring("print('Script 1 chạy')")()  -- Script 1 chạy ngay
-
 ConfirmRun("Checkpoint.1", function(yes)
     if yes then
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord.morph"))()
         ConfirmRun("Checkpoint.2", function(yes2)
             if yes2 then
- loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord.morph"))()
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()
             end
         end)
     end
 end)
+ConfirmRun("Checkpoint.3", function(yes3)
+            if yes2 then
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/An"))()
+            end
+        end)
+    end
+end)
+
