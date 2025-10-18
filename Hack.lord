@@ -57,7 +57,7 @@ ConfirmRun("Checkpoint.1", function(yes)
     end
 end)
 ConfirmRun("Checkpoint.3", function(yes3)
-            if yes2 then
+            if yes3 then
  loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/An"))()
             end
         end)
