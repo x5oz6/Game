@@ -1,0 +1,61 @@
+-- Hàm tạo popup Yes/No
+local function ConfirmRun(message, callback)
+    -- Tạo GUI mới trong CoreGui
+    local confirmGui = Instance.new("ScreenGui")
+    confirmGui.Parent = game.CoreGui
+
+    -- Frame chính
+    local frame = Instance.new("Frame", confirmGui)
+    frame.Size = UDim2.new(0, 300, 0, 150)
+    frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+    frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    frame.BorderSizePixel = 0
+
+    -- Label thông báo
+    local textLabel = Instance.new("TextLabel", frame)
+    textLabel.Size = UDim2.new(1, 0, 0.6, 0)
+    textLabel.Position = UDim2.new(0, 0, 0, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = message
+    textLabel.TextColor3 = Color3.fromRGB(255,255,255)
+    textLabel.TextScaled = true
+
+    -- Button Yes
+    local yesBtn = Instance.new("TextButton", frame)
+    yesBtn.Size = UDim2.new(0.5, 0, 0.4, 0)
+    yesBtn.Position = UDim2.new(0, 0, 0.6, 0)
+    yesBtn.Text = "Yes"
+    yesBtn.TextScaled = true
+
+    -- Button No
+    local noBtn = Instance.new("TextButton", frame)
+    noBtn.Size = UDim2.new(0.5, 0, 0.4, 0)
+    noBtn.Position = UDim2.new(0.5, 0, 0.6, 0)
+    noBtn.Text = "No"
+    noBtn.TextScaled = true
+
+    -- Xử lý click
+    yesBtn.MouseButton1Click:Connect(function()
+        confirmGui:Destroy()
+        callback(true)
+    end)
+
+    noBtn.MouseButton1Click:Connect(function()
+        confirmGui:Destroy()
+        callback(false)
+    end)
+end
+
+-- Ví dụ sử dụng
+loadstring("print('Script 1 chạy')")()  -- Script 1 chạy ngay
+
+ConfirmRun("Checkpoint.1", function(yes)
+    if yes then
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()
+        ConfirmRun("Checkpoint.2", function(yes2)
+            if yes2 then
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord.morph"))()
+            end
+        end)
+    end
+end)
