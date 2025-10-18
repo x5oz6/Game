@@ -21,3 +21,7 @@ Text = "client"})
 if workspace:WaitForChild("Debris") ~= nil then
 workspace.Debris:Destroy()
 end
+
+while wait(0.005) do
+char.Power.HammerSkill:FireServer(unpack(args))
+end
