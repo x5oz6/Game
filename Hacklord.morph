@@ -20,5 +20,20 @@ ScriptSettings = {
 --Loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/BloxinStud10/24-Hours/refs/heads/main/Obfuscations/Hacklord.luau"))()
 
-music
-loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()
+-- Thời gian chờ trước khi kích hoạt (giây)
+local delayTime = 10  
+
+print("⏳ Sẽ kích hoạt sau " .. delayTime .. " giây...")
+task.wait(delayTime)
+
+-- 💥 Thực hiện hành động sau khi hết thời gian
+print("🔥 Script đã được kích hoạt!")
+
+-- Ví dụ: hành động bạn muốn chạy ở đây
+-- (bạn có thể thay phần này bằng code thật của mình)
+for i = 1, 5 do
+    print("
+loadstring(game:HttpGet("https://raw.githubusercontent.com/x5oz6/Game/refs/heads/main/Hacklord"))()" .. i)
+    task.wait(10)
+end
+
