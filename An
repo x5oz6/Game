@@ -1,0 +1,23 @@
+-- If for some reason you died, execute script again
+
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+local pgui = plr.PlayerGui
+local RS = game:GetService("ReplicatedStorage")
+
+local args = {[1] = "skill1"}
+local args2 = {[1] = "Power"}
+
+RS.Choose:FireServer(unpack(args2))
+
+pgui.PlayerGui.ChooseFrame.Visible = false
+
+wait(0.5)
+
+game:GetService("StarterGui"):SetCore("SendNotification",
+{Title = "hacklord.m loaded!",
+Text = "client"})
+
+if workspace:WaitForChild("Debris") ~= nil then
+workspace.Debris:Destroy()
+end
