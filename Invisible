@@ -1,0 +1,151 @@
+local NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+NotificationLibrary:SendNotification("Info", "only works in r6 shape", 5.3)
+NotificationLibrary:SendNotification("Success", "sigma boy", 6)
+
+wait(6.2)
+-- Gui Setup
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local ToggleButton = Instance.new("TextButton")
+local dragging, dragInput, dragStart, startPos
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "InvisibleGui"
+
+MainFrame.Size = UDim2.new(0, 200, 0, 100)
+MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
+MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+MainFrame.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+ToggleButton.Size = UDim2.new(0.8, 0, 0, 40)
+ToggleButton.Position = UDim2.new(0.1, 0, 0.5, -20)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+ToggleButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.Text = "Toggle Invisible"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.Font = Enum.Font.SourceSans
+ToggleButton.TextSize = 18
+ToggleButton.Parent = MainFrame
+
+-- Dragging
+MainFrame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = MainFrame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+MainFrame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement then
+		dragInput = input
+	end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		local delta = input.Position - dragStart
+		MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+                                       startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+-- Invisible Script
+local player = game.Players.LocalPlayer
+local originalFace = nil
+local accessories = {}
+local clonedHumanoidRootPart = nil
+local invisibleOn = false
+
+local function makeInvisible()
+    if not player.Character then return end
+
+    -- Save Accessories
+    for _, accessory in ipairs(player.Character:GetChildren()) do
+        if accessory:IsA("Accessory") then
+            table.insert(accessories, accessory:Clone())
+        end
+    end
+
+    -- Save Face
+    local head = player.Character:FindFirstChild("Head")
+    if head and head:FindFirstChild("face") then
+        originalFace = head.face:Clone()
+        head.face:Destroy()
+    end
+
+    -- Save HumanoidRootPart
+    local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+    if hrp then
+        clonedHumanoidRootPart = hrp:Clone()
+        local position = hrp.Position
+        task.wait(0.1)
+        player.Character:MoveTo(position + Vector3.new(0, 1000000, 0))
+        task.wait(0.1)
+        hrp:Destroy()
+        clonedHumanoidRootPart.Parent = player.Character
+        player.Character:MoveTo(position)
+    end
+
+    -- Transparency
+    for _, partName in ipairs({"Torso", "Head", "Left Arm", "Right Arm", "Left Leg", "Right Leg"}) do
+        local part = player.Character:FindFirstChild(partName)
+        if part then
+            part.Transparency = 0.5
+        end
+    end
+
+    -- Remove accessories
+    for _, child in ipairs(player.Character:GetChildren()) do
+        if child:IsA("Accessory") then
+            child:Destroy()
+        end
+    end
+end
+
+local function makeVisible()
+    if not player.Character then return end
+
+    -- Restore Transparency
+    for _, partName in ipairs({"Torso", "Head", "Left Arm", "Right Arm", "Left Leg", "Right Leg"}) do
+        local part = player.Character:FindFirstChild(partName)
+        if part then
+            part.Transparency = 0
+        end
+    end
+
+    -- Restore Accessories
+    for _, accessory in ipairs(accessories) do
+        accessory:Clone().Parent = player.Character
+    end
+    accessories = {}
+
+    -- Restore Face
+    local head = player.Character:FindFirstChild("Head")
+    if head and originalFace then
+        originalFace:Clone().Parent = head
+    end
+    originalFace = nil
+end
+
+-- Toggle
+ToggleButton.MouseButton1Click:Connect(function()
+    if not invisibleOn then
+        makeInvisible()
+        ToggleButton.Text = "Invisible On"
+    else
+        makeVisible()
+        ToggleButton.Text = "Toggle Invisible"
+    end
+    invisibleOn = not invisibleOn
+end)
